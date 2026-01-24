@@ -1,0 +1,11 @@
+# YouTube Playlist to MP3 Converter - Requirements
+
+# Core dependencies
+yt-dlp>=2024.1.1
+ffmpeg-python>=0.2.0
+
+# GUI (tkinter is built into Python, no need to install)
+
+# Optional: For better performance and features
+certifi>=2023.0.0
+urllib3>=2.0.0
