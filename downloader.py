@@ -78,9 +78,22 @@ class YouTubeDownloader:
         """Signal to stop downloading"""
         self.should_stop = True
         
+    def sanitize_filename(self, filename):
+        """Sanitize filename by removing or replacing invalid characters"""
+        # Characters that are invalid in Windows filenames
+        invalid_chars = r'<>:"/\|?*'
+        sanitized = filename
+        for char in invalid_chars:
+            sanitized = sanitized.replace(char, '_')
+        # Remove trailing dots and spaces
+        sanitized = sanitized.rstrip('. ')
+        return sanitized
+    
     def file_exists(self, title):
         """Check if MP3 file already exists"""
-        mp3_file = self.output_dir / f"{title}.mp3"
+        # Sanitize the title the same way yt-dlp does
+        sanitized_title = self.sanitize_filename(title)
+        mp3_file = self.output_dir / f"{sanitized_title}.mp3"
         return mp3_file.exists()
         
     def progress_hook(self, d):
